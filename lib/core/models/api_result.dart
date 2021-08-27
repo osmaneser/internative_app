@@ -1,37 +1,39 @@
-// // To parse this JSON data, do
-// //
-// //     final apiResult = apiResultFromJson(jsonString);
+// To parse this JSON data, do
+//
+//     final apiResult = apiResultFromJson(jsonString);
 
-// import 'dart:convert';
+import 'dart:convert';
 
-// ApiResult apiResultFromJson(String str) => ApiResult.fromJson(json.decode(str));
+import 'package:internative_app/core/models/validation_error.dart';
 
-// String apiResultToJson(ApiResult data) => json.encode(data.toJson());
+ApiResult apiResultFromJson(String str) => ApiResult.fromJson(json.decode(str));
 
-// class ApiResult<T,R> {
-//     ApiResult({
-//        required this.validationErrors,
-//        required this.hasError,
-//        required this.message,
-//        required this.data,
-//     });
+String apiResultToJson(ApiResult data) => json.encode(data.toJson());
 
-//     List<R> validationErrors;
-//     bool hasError;
-//     dynamic message;
-//     T data;
+class ApiResult<T> {
+    ApiResult({
+       required this.validationErrors,
+       required this.hasError,
+       required this.message,
+       required this.data,
+    });
 
-//     factory ApiResult.fromJson(Map<String, dynamic> json) => ApiResult(
-//         validationErrors: List<R>.from(json["ValidationErrors"].map((x) => x)),
-//         hasError: json["HasError"],
-//         message: json["Message"],
-//         data: T.fromJson(json["Data"]),
-//     );
+    List<ValidationError> validationErrors;
+    bool hasError;
+    dynamic message;
+    T data;
 
-//     Map<String, dynamic> toJson() => {
-//         "ValidationErrors": List<dynamic>.from(validationErrors.map((x) => x)),
-//         "HasError": hasError,
-//         "Message": message,
-//         "Data": data.toJson(),
-//     };
-// }
+    factory ApiResult.fromJson(Map<String, dynamic> json) => ApiResult(
+        validationErrors: List<ValidationError>.from(json["ValidationErrors"].map((x) => x)),
+        hasError: json["HasError"],
+        message: json["Message"],
+        data: (json["Data"] as dynamic),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "ValidationErrors": List<dynamic>.from(validationErrors.map((x) => x)),
+        "HasError": hasError,
+        "Message": message,
+        "Data": data,
+    };
+}

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:internative_app/core/models/api_result.dart';
 import '../configs/app_config.dart';
 
 class HttpService {
@@ -45,13 +46,13 @@ class HttpService {
     }
   }
 
-  // Future<ApiResult<dynamic>> httpGet<T>({@required String url}) async {
-  //   final result = await this.dio.get(AppConfig.baseUrl + url);
-  //   return ApiResult.fromJson(result.data);
-  // }
+  Future<ApiResult<dynamic>> httpGet<T>({required String url}) async {
+    final result = await this.dio.get(AppConfig.baseUrl + url);
+    return ApiResult.fromJson(result.data);
+  }
 
-  // Future<ApiResult<dynamic>> httpPost({@required String url, @required dynamic data}) async {
-  //   final result = await this.dio.post(AppConfig.baseUrl + url, data: data);
-  //   return ApiResult.fromJson(result.data);
-  // }
+  Future<ApiResult<dynamic>> httpPost({required String url, required dynamic data}) async {
+    final result = await this.dio.post(AppConfig.baseUrl + url, data: data);
+    return ApiResult.fromJson(result.data);
+  }
 }

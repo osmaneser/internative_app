@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 
 class DialogService {
-  static Future<void> durationDialog(
+  static void durationDialog(
     BuildContext context,
-  ) {
-    return showDialog(
+  ) async{
+    showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
           title: Text("Title"),
           content: Text("Content"),
-          actions: [
-            TextButton(onPressed: (){}, child: Text("Evet")),
-            TextButton(onPressed: (){}, child: Text("Hayır"))
-          ],
         );
       },
     );
+    await Future.delayed(Duration(seconds: 2));
+    Navigator.pop(context);
   }
 }
