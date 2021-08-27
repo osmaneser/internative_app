@@ -9,7 +9,7 @@ class OeContentText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(color: Colors.pink, fontSize: 12),
+      style: TextStyle(color: Colors.yellowAccent, fontSize: 12),
     );
   }
 }

@@ -21,10 +21,11 @@ class HttpService {
       dio.interceptors.add(
         InterceptorsWrapper(
           onError: (e, handler) {
+            print(e);
+            print(handler);
             return handler.next(e);
           },
           onRequest: (RequestOptions options, handler) async {
-
             Map<String, String> headers = {
               HttpHeaders.contentTypeHeader: "application/json",
             };
