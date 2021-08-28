@@ -12,13 +12,14 @@ import 'package:internative_app/ui/reusuable_widgets/profile_image/profile_image
 class OeProfileCard extends StatelessWidget {
   final bool isFollowed;
   final bool isLoading;
+  final bool showFollowButton;
   final String userId;
   final String name;
   final String email;
   final String imgUrl;
   final Function(String) onTap;
   const OeProfileCard(
-      {Key? key, required this.name, required this.email, required this.imgUrl, required this.isFollowed, required this.userId, required this.onTap,required this.isLoading})
+      {Key? key, required this.name, required this.email, required this.imgUrl, required this.isFollowed, required this.userId, required this.onTap,required this.isLoading, this.showFollowButton = true})
       : super(key: key);
 
   @override
@@ -43,15 +44,15 @@ class OeProfileCard extends StatelessWidget {
           title: OeLabelText(text: name),
           subtitle: OeContentText(text: email),
           leading: OeProfileImageAvatarThumb(imgUrl: imgUrl),
-          trailing: Observer(
+          trailing: showFollowButton ? Observer(
             builder: (_) {
               return OeButton(
                 isLoading: isLoading,
                 onTap: () => onTap(userId),
-                text: vModelHome.userDetail!.friendIds.any((element) => element == userId) ? "Takipten Çık" : "Takip Et",
+                text: vModelHome.myProfileDetail!.friendIds.any((element) => element == userId) ? "Takipten Çık" : "Takip Et",
               );
             },
-          ),
+          ) : null,
         ),
       ),
     );

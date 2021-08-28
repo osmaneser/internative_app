@@ -20,7 +20,7 @@ abstract class _HomeViewModelBase with Store {
   List<ResUser> listFirends = [];
 
   @observable
-  ResUserDetail? userDetail;
+  ResUserDetail? myProfileDetail;
 
   @observable
   String? message;
@@ -51,7 +51,7 @@ abstract class _HomeViewModelBase with Store {
         message = result.message;
         state = HomeState.Error;
       } else {
-        userDetail = ResUserDetail.fromJson(result.data);
+        myProfileDetail = ResUserDetail.fromJson(result.data);
         state = HomeState.Done;
       }
     } catch (e) {

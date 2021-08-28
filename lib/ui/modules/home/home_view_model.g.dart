@@ -39,18 +39,19 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
     });
   }
 
-  final _$userDetailAtom = Atom(name: '_HomeViewModelBase.userDetail');
+  final _$myProfileDetailAtom =
+      Atom(name: '_HomeViewModelBase.myProfileDetail');
 
   @override
-  ResUserDetail? get userDetail {
-    _$userDetailAtom.reportRead();
-    return super.userDetail;
+  ResUserDetail? get myProfileDetail {
+    _$myProfileDetailAtom.reportRead();
+    return super.myProfileDetail;
   }
 
   @override
-  set userDetail(ResUserDetail? value) {
-    _$userDetailAtom.reportWrite(value, super.userDetail, () {
-      super.userDetail = value;
+  set myProfileDetail(ResUserDetail? value) {
+    _$myProfileDetailAtom.reportWrite(value, super.myProfileDetail, () {
+      super.myProfileDetail = value;
     });
   }
 
@@ -89,7 +90,7 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
     return '''
 state: ${state},
 listFirends: ${listFirends},
-userDetail: ${userDetail},
+myProfileDetail: ${myProfileDetail},
 message: ${message}
     ''';
   }

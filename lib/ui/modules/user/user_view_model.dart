@@ -50,7 +50,7 @@ abstract class _UserViewModelBase with Store {
         state = UserState.Error;
       } else {
         final vModelHome = locator<HomeViewModel>();
-        vModelHome.userDetail!.friendIds.add(userId);
+        vModelHome.myProfileDetail!.friendIds.add(userId);
         final findItem = listUser.firstWhere((element) => element.id == userId);
         vModelHome.listFirends.add(findItem);
 
@@ -70,7 +70,7 @@ abstract class _UserViewModelBase with Store {
         state = UserState.Error;
       } else {
         final vModelHome = locator<HomeViewModel>();
-        vModelHome.userDetail!.friendIds.remove(userId);
+        vModelHome.myProfileDetail!.friendIds.remove(userId);
         vModelHome.listFirends.removeWhere((element) => element.id == userId);
 
         state = UserState.Done;

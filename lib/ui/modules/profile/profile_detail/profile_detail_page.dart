@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:internative_app/core/enums/image_type_enum.dart';
 import 'package:internative_app/core/mixins/date_parser.dart';
 import 'package:internative_app/core/reusuable_widgets/button/oe_button.dart';
 import 'package:internative_app/core/reusuable_widgets/circular_progress/oe_circular_progress.dart';
@@ -77,12 +78,12 @@ class ProfileDetailPage extends StatelessWidget with DateFormatterMixin {
     return Center(
       child: Column(
         children: [
-          Expanded(flex: 30, child: OeProfileImageAvatar(imgUrl: userDetail.profilePhoto)),
+          Expanded(flex: 30, child: OeProfileImageAvatar(imgUrl: userDetail.profilePhoto, imageType: ImageType.Network,)),
           Expanded(
             flex: 5,
             child: Observer(builder: (_) {
-              bool isFollowed = vModelHome.userDetail!.friendIds.any((element) => element == userId);
-              return OeButton(
+              bool isFollowed = vModelHome.myProfileDetail!.friendIds.any((element) => element == userId);
+              return vModelHome.myProfileDetail!.id != userId ? OeButton(
                 isLoading: vModelUser.state == UserState.Busy,
                 onTap: () {
                   if (isFollowed) {
@@ -92,7 +93,7 @@ class ProfileDetailPage extends StatelessWidget with DateFormatterMixin {
                   }
                 },
                 text: isFollowed ? "Takipten Çık" : "Takip Et",
-              );
+              ) : OeContentText(text: "Profiliniz"); 
             }),
           ),
           Spacer(

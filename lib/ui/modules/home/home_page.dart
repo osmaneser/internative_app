@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:internative_app/core/enums/image_type_enum.dart';
 import 'package:internative_app/core/reusuable_widgets/text/oe_title_text.dart';
 import 'package:internative_app/init/locator.dart';
 import 'package:internative_app/ui/modules/home/home_view_model.dart';
+import 'package:internative_app/ui/modules/profile/profile_detail/profile_detail_page.dart';
 import 'package:internative_app/ui/modules/user/list/user_list_page.dart';
 import 'package:internative_app/ui/reusuable_widgets/profile_image/profile_image_avatar.dart';
 
@@ -19,20 +21,27 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(flex: 49, child: getMenuItem("Profilim", "")),
-            Spacer(
-              flex: 2,
-            ),
+            Spacer(flex: 5),
             Expanded(
-              flex: 49,
+                flex: 44,
+                child: InkWell(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileDetailPage(userId: vModelHome.myProfileDetail!.id)));
+                    },
+                    child: getMenuItem("Profilim", "assets/images/svg/profile_icon.svg"))),
+            Spacer(flex: 2),
+            Expanded(
+              flex: 44,
               child: InkWell(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => UserListPage()));
                 },
-                child: getMenuItem("Kişiler", ""),
+                child: getMenuItem("Kişiler", "assets/images/svg/friends_icon.svg"),
               ),
             ),
+            Spacer(flex: 5),
           ],
         ),
       ),
@@ -41,7 +50,16 @@ class HomePage extends StatelessWidget {
 
   Column getMenuItem(String name, String imgUrl) {
     return Column(
-      children: [OeProfileImageAvatar(imgUrl: imgUrl), OeTitleText(text: name)],
+      children: [
+        OeProfileImageAvatar(
+          imgUrl: imgUrl,
+          imageType: ImageType.Svg,
+        ),
+        SizedBox(
+          height: 8,
+        ),
+        OeTitleText(text: name)
+      ],
     );
   }
 }

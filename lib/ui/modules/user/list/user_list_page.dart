@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:internative_app/core/reusuable_widgets/circular_progress/oe_circular_progress.dart';
+import 'package:internative_app/core/reusuable_widgets/text/oe_title_text.dart';
 import 'package:internative_app/init/locator.dart';
 import 'package:internative_app/ui/modules/home/home_view_model.dart';
 import 'package:internative_app/ui/reusuable_widgets/profile_card/profile_card.dart';
@@ -18,6 +19,10 @@ class UserListPage extends StatelessWidget {
     if (vModelUser.state == UserState.Initial) vModelUser.getUsers(context);
 
     return Scaffold(
+      appBar: AppBar(
+        title: OeTitleText(text: "Kullanıcı Listesi"),
+        centerTitle: true,
+      ),
       body: Observer(
         builder: (_) {
           return RefreshIndicator(
@@ -27,7 +32,8 @@ class UserListPage extends StatelessWidget {
                   children: vModelUser.listUser.map((e) {
                     return OeProfileCard(
                       userId: e.id,
-                      isFollowed: vModelHome.userDetail!.friendIds.any((element) => element == e.id),
+                      isFollowed: vModelHome.myProfileDetail!.friendIds.any((element) => element == e.id),
+                      showFollowButton: vModelHome.myProfileDetail!.id != e.id,
                       name: e.fullName,
                       email: e.email,
                       imgUrl: e.profilePhoto,
@@ -35,7 +41,7 @@ class UserListPage extends StatelessWidget {
                       onTap: (userId) async {
                         selectedUserId = userId;
                         {
-                          if (vModelHome.userDetail!.friendIds.any((element) => element == e.id)) {
+                          if (vModelHome.myProfileDetail!.friendIds.any((element) => element == e.id)) {
                             await vModelUser.removeFriend(userId);
                           } else {
                             await vModelUser.addFriend(userId);
