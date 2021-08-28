@@ -21,7 +21,7 @@ class ProfileDetailPage extends StatelessWidget with DateFormatterMixin {
   @override
   Widget build(BuildContext context) {
     final vModelProfileDetail = locator<ProfileDetailViewModel>();
-    if (vModelProfileDetail.state == ProfileDetailState.Initial) vModelProfileDetail.getProfileDetail(userId);
+    vModelProfileDetail.getProfileDetail(userId);
     return Scaffold(
       appBar: AppBar(
         title: OeTitleText(text: "Profil detayı"),
