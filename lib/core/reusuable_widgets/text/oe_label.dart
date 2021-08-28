@@ -14,7 +14,6 @@ class OeLabelText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        color: Colors.pinkAccent,
         fontSize: 12,
         fontWeight: fontWeight,
       ),

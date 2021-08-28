@@ -1,3 +1,4 @@
+import 'package:internative_app/core/enums/aler_type_enum.dart';
 import 'package:internative_app/core/services/dialog_service.dart';
 import 'package:internative_app/init/locator.dart';
 import 'package:internative_app/ui/models/request/req_add_to_firend.dart';
@@ -30,7 +31,7 @@ abstract class _UserViewModelBase with Store {
     try {
       final result = await repository.getUsers();
       if (result.hasError) {
-        DialogService.durationDialog(context: context, message: result.message);
+        DialogService.durationDialog(context: context, message: result.message, alertType: AlertType.Error);
         state = UserState.Error;
       } else {
         listUser = (result.data as List).map((e) => ResUser.fromJson(e)).toList();
@@ -78,5 +79,10 @@ abstract class _UserViewModelBase with Store {
     } catch (e) {
       state = UserState.Error;
     }
+  }
+
+  void dispose() {
+    state = UserState.Initial;
+    listUser = [];
   }
 }

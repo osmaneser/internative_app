@@ -1,9 +1,10 @@
 mixin OeValidation {
-  
-  //TODO: Regex ile email pattern sağlanacak.
-  String? validateEmail(String? value) =>
-      value != null ? (value.contains("@") ? null : "Hatalı e posta") : "Bu alan gerekli";
+  String emailPattern =
+        "^[a-zA-Z0-9.!#\$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*\$";
 
-  //TODO: Regex ile password pattern sağlanacak.
-  String? validatePassword(String? value) => value != null ? (value.length > 5 ? null : "minimum 6 karakter") : "Bu alan gerekli";
+  String? validateEmail(String? value) =>
+      value != null ? (RegExp(emailPattern).hasMatch(value) ? null : "Hatalı E posta") : "Bu alan gerekli";
+
+  String numberPattern = "^[0-9]*\$";
+  String? validatePassword(String? value) => (value != null && value.isNotEmpty) ? (RegExp(numberPattern).hasMatch(value) ? null : "Sadece sayı giriniz") : "Bu alan gerekli";
 }

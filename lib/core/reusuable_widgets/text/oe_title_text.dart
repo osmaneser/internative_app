@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 
 class OeTitleText extends StatelessWidget {
   final String text;
-  const OeTitleText({Key? key, required this.text}) : super(key: key);
+  final Color? color;
+  const OeTitleText({Key? key, required this.text, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
     return Text(
       text,
       style: TextStyle(
-        color: Colors.pinkAccent,
+        color: color != null ? color : Colors.white,
         fontSize: 16,
         fontWeight: FontWeight.bold
       ),

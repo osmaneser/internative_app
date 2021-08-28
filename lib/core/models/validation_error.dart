@@ -1,12 +1,12 @@
 
 class ValidationError {
     ValidationError({
-        this.key,
-        this.value,
+        required this.key,
+        required this.value,
     });
 
-    String? key;
-    String? value;
+    String key;
+    String value;
 
     factory ValidationError.fromJson(Map<String, dynamic> json) => ValidationError(
         key: json["Key"],

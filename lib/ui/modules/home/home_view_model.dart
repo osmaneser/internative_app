@@ -58,4 +58,12 @@ abstract class _HomeViewModelBase with Store {
       state = HomeState.Error;
     }
   }
+
+  void dispose() {
+    repository = locator<UserRepository>();
+    state = HomeState.Initial;
+    listFirends = [];
+    myProfileDetail = null;
+    message = "";
+  }
 }

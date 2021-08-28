@@ -78,7 +78,13 @@ class ProfileDetailPage extends StatelessWidget with DateFormatterMixin {
     return Center(
       child: Column(
         children: [
+           Spacer(
+            flex: 5
+          ),
           Expanded(flex: 30, child: OeProfileImageAvatar(imgUrl: userDetail.profilePhoto, imageType: ImageType.Network,)),
+          Spacer(
+            flex: 5
+          ),
           Expanded(
             flex: 5,
             child: Observer(builder: (_) {
@@ -99,7 +105,7 @@ class ProfileDetailPage extends StatelessWidget with DateFormatterMixin {
           Spacer(
             flex: 5,
           ),
-          Expanded(flex: 60, child: _profileInfo)
+          Expanded(flex: 50, child: _profileInfo)
         ],
       ),
     );

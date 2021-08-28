@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:internative_app/core/configs/path_config.dart';
 import 'package:internative_app/core/enums/error_page_type.dart';
 import 'package:internative_app/core/reusuable_widgets/text/oe_title_text.dart';
 
@@ -36,13 +37,13 @@ class OeErrorPage extends StatelessWidget {
   _getErrorImageByType(pageType) {
     switch (pageType) {
       case ErrorPageType.BadRequest:
-        return SvgPicture.asset("assets/images/svg/400.svg",width: 150,height: 150,);
+        return SvgPicture.asset("${PathConfig.svgPath}400.svg",width: 150,height: 150,);
       case ErrorPageType.Unauthorized:
-        return SvgPicture.asset("assets/images/svg/unauthorized-person.svg",width: 150,height: 150,);
+        return SvgPicture.asset("${PathConfig.svgPath}unauthorized-person.svg",width: 150,height: 150,);
       case ErrorPageType.NotFound:
-        return SvgPicture.asset("assets/images/svg/404.svg",width: 150,height: 150,);
+        return SvgPicture.asset("${PathConfig.svgPath}404.svg",width: 150,height: 150,);
       default:
-      return SvgPicture.asset("assets/images/svg/no-entry.svg",width: 150,height: 150,);
+      return SvgPicture.asset("${PathConfig.svgPath}no-entry.svg",width: 150,height: 150,);
     }
   }
 }

@@ -54,6 +54,22 @@ mixin _$SignInViewModel on _SignInViewModelBase, Store {
     });
   }
 
+  final _$validationErrorsAtom =
+      Atom(name: '_SignInViewModelBase.validationErrors');
+
+  @override
+  List<ValidationError> get validationErrors {
+    _$validationErrorsAtom.reportRead();
+    return super.validationErrors;
+  }
+
+  @override
+  set validationErrors(List<ValidationError> value) {
+    _$validationErrorsAtom.reportWrite(value, super.validationErrors, () {
+      super.validationErrors = value;
+    });
+  }
+
   final _$ctrlEmailAtom = Atom(name: '_SignInViewModelBase.ctrlEmail');
 
   @override
@@ -155,11 +171,23 @@ mixin _$SignInViewModel on _SignInViewModelBase, Store {
   }
 
   @override
+  void dispose() {
+    final _$actionInfo = _$_SignInViewModelBaseActionController.startAction(
+        name: '_SignInViewModelBase.dispose');
+    try {
+      return super.dispose();
+    } finally {
+      _$_SignInViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 boxAuth: ${boxAuth},
 isObsecure: ${isObsecure},
 message: ${message},
+validationErrors: ${validationErrors},
 ctrlEmail: ${ctrlEmail},
 ctrlPassword: ${ctrlPassword},
 keyFormSignIn: ${keyFormSignIn},

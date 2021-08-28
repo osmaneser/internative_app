@@ -44,4 +44,11 @@ abstract class _ProfileDetailViewModelBase with Store, DateFormatterMixin {
       state = ProfileDetailState.Error;
     }
   }
+
+  void dispose() {
+    isOwner = false;
+    userDetail = null;
+    message = "";
+    state = ProfileDetailState.Initial;
+  }
 }

@@ -61,10 +61,13 @@ class OeTextFormField extends StatelessWidget {
               minLines: TextInputType.multiline == keyboardType ? 3 : 1,
               validator: (val) => validator(val),
               textInputAction: textInputAction,
+              style: TextStyle(
+                color: Colors.white
+              ),
               decoration: InputDecoration(
                 isDense: true,
                 //contentPadding: EdgeInsets.fromLTRB(10, 20, 20, 0),
-                fillColor: fillColor ?? null,
+                fillColor: themeData.inputDecorationTheme.fillColor,
                 filled: true,
                 hintText: hintText,
                 border: OutlineInputBorder(

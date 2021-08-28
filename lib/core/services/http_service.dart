@@ -1,13 +1,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:internative_app/core/configs/global_constants.dart';
-import 'package:internative_app/core/enums/error_page_type.dart';
 import 'package:internative_app/core/models/api_result.dart';
-import 'package:internative_app/core/reusuable_widgets/error_pages/error_page.dart';
 import 'package:internative_app/init/locator.dart';
-import 'package:internative_app/ui/modules/auth/sign_in/sign_in_page.dart';
 import 'package:internative_app/ui/modules/auth/sign_in/sign_in_view_model.dart';
 import '../configs/app_config.dart';
 
@@ -29,21 +24,7 @@ class HttpService {
           onError: (e, handler) {
             final code = e.response!.statusCode;
 
-            switch (code) {
-              case HttpStatus.badRequest:
-                GlobalConstants.navigatorKey!.currentState!
-                    .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => SignInPage()), (route) => false);
-                break;
-              case HttpStatus.unauthorized:
-              GlobalConstants.navigatorKey!.currentState!
-                .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => OeErrorPage(pageType: ErrorPageType.Unauthorized,)), (route) => false);
-                break;
-              case HttpStatus.notFound:
-              GlobalConstants.navigatorKey!.currentState!
-                .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => SignInPage()), (route) => false);
-                break;
-              default:
-            }
+
             return handler.next(e);
           },
           onRequest: (RequestOptions options, handler) async {
