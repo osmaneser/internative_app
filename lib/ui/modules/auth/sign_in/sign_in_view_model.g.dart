@@ -9,6 +9,21 @@ part of 'sign_in_view_model.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$SignInViewModel on _SignInViewModelBase, Store {
+  final _$boxAuthAtom = Atom(name: '_SignInViewModelBase.boxAuth');
+
+  @override
+  Box<dynamic>? get boxAuth {
+    _$boxAuthAtom.reportRead();
+    return super.boxAuth;
+  }
+
+  @override
+  set boxAuth(Box<dynamic>? value) {
+    _$boxAuthAtom.reportWrite(value, super.boxAuth, () {
+      super.boxAuth = value;
+    });
+  }
+
   final _$isObsecureAtom = Atom(name: '_SignInViewModelBase.isObsecure');
 
   @override
@@ -27,13 +42,13 @@ mixin _$SignInViewModel on _SignInViewModelBase, Store {
   final _$messageAtom = Atom(name: '_SignInViewModelBase.message');
 
   @override
-  String get message {
+  String? get message {
     _$messageAtom.reportRead();
     return super.message;
   }
 
   @override
-  set message(String value) {
+  set message(String? value) {
     _$messageAtom.reportWrite(value, super.message, () {
       super.message = value;
     });
@@ -99,6 +114,14 @@ mixin _$SignInViewModel on _SignInViewModelBase, Store {
     });
   }
 
+  final _$initializeAuthAsyncAction =
+      AsyncAction('_SignInViewModelBase.initializeAuth');
+
+  @override
+  Future<void> initializeAuth() {
+    return _$initializeAuthAsyncAction.run(() => super.initializeAuth());
+  }
+
   final _$doSignInAsyncAction = AsyncAction('_SignInViewModelBase.doSignIn');
 
   @override
@@ -134,6 +157,7 @@ mixin _$SignInViewModel on _SignInViewModelBase, Store {
   @override
   String toString() {
     return '''
+boxAuth: ${boxAuth},
 isObsecure: ${isObsecure},
 message: ${message},
 ctrlEmail: ${ctrlEmail},

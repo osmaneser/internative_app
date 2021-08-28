@@ -12,7 +12,7 @@ class SignInPage extends StatelessWidget with OeValidation {
   @override
   Widget build(BuildContext context) {
     final vModelSignIn = locator<SignInViewModel>();
-
+    vModelSignIn.initializeAuth();
     return Scaffold(
       body: Padding(
           padding: const EdgeInsets.all(8.0),

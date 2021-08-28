@@ -2,7 +2,13 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:internative_app/core/configs/global_constants.dart';
+import 'package:internative_app/core/enums/error_page_type.dart';
 import 'package:internative_app/core/models/api_result.dart';
+import 'package:internative_app/core/reusuable_widgets/error_pages/error_page.dart';
+import 'package:internative_app/init/locator.dart';
+import 'package:internative_app/ui/modules/auth/sign_in/sign_in_page.dart';
+import 'package:internative_app/ui/modules/auth/sign_in/sign_in_view_model.dart';
 import '../configs/app_config.dart';
 
 class HttpService {
@@ -21,22 +27,37 @@ class HttpService {
       dio.interceptors.add(
         InterceptorsWrapper(
           onError: (e, handler) {
-            print(e);
-            print(handler);
+            final code = e.response!.statusCode;
+
+            switch (code) {
+              case HttpStatus.badRequest:
+                GlobalConstants.navigatorKey!.currentState!
+                    .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => SignInPage()), (route) => false);
+                break;
+              case HttpStatus.unauthorized:
+              GlobalConstants.navigatorKey!.currentState!
+                .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => OeErrorPage(pageType: ErrorPageType.Unauthorized,)), (route) => false);
+                break;
+              case HttpStatus.notFound:
+              GlobalConstants.navigatorKey!.currentState!
+                .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => SignInPage()), (route) => false);
+                break;
+              default:
+            }
             return handler.next(e);
           },
           onRequest: (RequestOptions options, handler) async {
             Map<String, String> headers = {
               HttpHeaders.contentTypeHeader: "application/json",
             };
-
-            String token =
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MTI3NTRkZDRhMWMyZDM0NmNmZDk0NmQiLCJmdWxsTmFtZSI6IkVyZW4gS2F5YSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJuYmYiOjE2MzAxMDUwMTksImV4cCI6MTYzMjY5NzAxOSwiaXNzIjoiaSIsImF1ZCI6ImEifQ.yu6lkJNssi9Gs6aG0GC4rRGVs4jM-uXm4rCpX2IyfkU";
-            //TODO: Token işlemlerini düzelt
-            if (token != null && token.isNotEmpty) {
-              options.headers = headers;
+            final vModelAuth = locator<SignInViewModel>();
+            if (vModelAuth.boxAuth != null) {
+              String token = vModelAuth.boxAuth!.get("token");
               if (token.isNotEmpty) {
-                options.headers["Authorization"] = "Bearer $token";
+                options.headers = headers;
+                if (token.isNotEmpty) {
+                  options.headers["Authorization"] = "Bearer $token";
+                }
               }
             }
             return handler.next(options);

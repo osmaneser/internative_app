@@ -1,0 +1,1 @@
+enum ErrorPageType { NotFound, Unauthorized, BadRequest}

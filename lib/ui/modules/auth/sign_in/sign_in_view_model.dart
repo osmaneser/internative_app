@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:internative_app/core/services/dialog_service.dart';
 import 'package:internative_app/init/locator.dart';
 import 'package:internative_app/ui/models/request/req_sign_in.dart';
 import 'package:internative_app/ui/models/response/res_sign_in.dart';
+import 'package:internative_app/ui/modules/home/home_page.dart';
 import 'package:internative_app/ui/modules/user/list/user_list_page.dart';
 import 'package:internative_app/ui/repositories/login_repository.dart';
 import 'package:internative_app/ui/repositories/user_repository.dart';
@@ -18,10 +20,13 @@ abstract class _SignInViewModelBase extends UserRepository with Store {
   LoginRepository repository = locator<LoginRepository>();
 
   @observable
+  Box? boxAuth;
+
+  @observable
   bool isObsecure = true;
 
   @observable
-  late String message;
+  String? message;
 
   @observable
   late TextEditingController ctrlEmail = TextEditingController();
@@ -34,6 +39,12 @@ abstract class _SignInViewModelBase extends UserRepository with Store {
 
   @observable
   SignInState state = SignInState.Initial;
+
+  @action
+  Future<void> initializeAuth() async {
+    boxAuth = await Hive.openBox('authBox');
+    await boxAuth!.put('token', "");
+  }
 
   @action
   Future<void> doSignIn(context) async {
@@ -51,13 +62,14 @@ abstract class _SignInViewModelBase extends UserRepository with Store {
         DialogService.durationDialog(context: context, message: result.message);
         state = SignInState.Error;
       } else {
-        final token = ResSignIn.fromJson(result.data);
+        final response = ResSignIn.fromJson(result.data);
         await DialogService.durationDialog(
             context: context,
             message: "Giriş Başarılı",
             whenComplate: () async {
-              
-              await Navigator.push(context, MaterialPageRoute(builder: (context) => UserListPage()));
+              boxAuth!.put("token", response.token);
+              var as = boxAuth;
+              await Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
             });
         state = SignInState.Done;
       }
