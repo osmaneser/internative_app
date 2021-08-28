@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:internative_app/core/mixins/date_parser.dart';
+import 'package:internative_app/core/reusuable_widgets/button/oe_button.dart';
 import 'package:internative_app/core/reusuable_widgets/circular_progress/oe_circular_progress.dart';
 import 'package:internative_app/core/reusuable_widgets/text/oe_content_text.dart';
 import 'package:internative_app/core/reusuable_widgets/text/oe_label.dart';
+import 'package:internative_app/core/reusuable_widgets/text/oe_title_text.dart';
 import 'package:internative_app/init/locator.dart';
 import 'package:internative_app/ui/models/response/res_user_detail.dart';
+import 'package:internative_app/ui/modules/home/home_view_model.dart';
 import 'package:internative_app/ui/modules/profile/profile_detail/profile_detail_view_model.dart';
-import 'package:internative_app/ui/reusuable_widgets/follow_button/follow_button.dart';
+import 'package:internative_app/ui/modules/user/user_view_model.dart';
 import 'package:internative_app/ui/reusuable_widgets/profile_image/profile_image_avatar.dart';
 
-class ProfileDetailPage extends StatelessWidget {
+class ProfileDetailPage extends StatelessWidget with DateFormatterMixin {
   final String userId;
   const ProfileDetailPage({Key? key, required this.userId}) : super(key: key);
 
@@ -19,6 +22,10 @@ class ProfileDetailPage extends StatelessWidget {
     final vModelProfileDetail = locator<ProfileDetailViewModel>();
     if (vModelProfileDetail.state == ProfileDetailState.Initial) vModelProfileDetail.getProfileDetail(userId);
     return Scaffold(
+      appBar: AppBar(
+        title: OeTitleText(text: "Profil detayı"),
+        centerTitle: true,
+      ),
       body: Observer(
         builder: (_) {
           if (vModelProfileDetail.state == ProfileDetailState.Busy) {
@@ -33,16 +40,23 @@ class ProfileDetailPage extends StatelessWidget {
     );
   }
 
-  Row getProfileInfo(
-    OeLabelText label,
-    OeContentText content,
-  ) {
+  Row getProfileInfo(OeLabelText label, OeContentText content) {
     return Row(
-      children: [Expanded(flex: 48,child: label), Expanded(flex: 1,child: OeLabelText(text:":")),Spacer(flex: 3,) ,Expanded(flex: 48,child: Align(alignment: Alignment.centerLeft,child: content))],
+      children: [
+        Expanded(flex: 48, child: label),
+        Expanded(flex: 1, child: OeLabelText(text: ":")),
+        Spacer(
+          flex: 3,
+        ),
+        Expanded(flex: 48, child: Align(alignment: Alignment.centerLeft, child: content))
+      ],
     );
   }
 
   Center getDetailWidget(ResUserDetail userDetail) {
+    final vModelHome = locator<HomeViewModel>();
+    final vModelUser = locator<UserViewModel>();
+
     final _profileInfo = Padding(
       padding: EdgeInsets.all(16),
       child: Column(
@@ -55,7 +69,7 @@ class ProfileDetailPage extends StatelessWidget {
           SizedBox(
             height: 16,
           ),
-          getProfileInfo(OeLabelText(text: "Doğum Tarihi"), OeContentText(text: "")),
+          getProfileInfo(OeLabelText(text: "Doğum Tarihi"), OeContentText(text: dateFormatter(userDetail.birthDate))),
         ],
       ),
     );
@@ -64,8 +78,26 @@ class ProfileDetailPage extends StatelessWidget {
       child: Column(
         children: [
           Expanded(flex: 30, child: OeProfileImageAvatar(imgUrl: userDetail.profilePhoto)),
-          Expanded(flex: 5, child: OeFollowButton(isFollowed: false)),
-          Spacer(flex: 5,),
+          Expanded(
+            flex: 5,
+            child: Observer(builder: (_) {
+              bool isFollowed = vModelHome.userDetail!.friendIds.any((element) => element == userId);
+              return OeButton(
+                isLoading: vModelUser.state == UserState.Busy,
+                onTap: () {
+                  if (isFollowed) {
+                    vModelUser.removeFriend(userId);
+                  } else {
+                    vModelUser.addFriend(userId);
+                  }
+                },
+                text: isFollowed ? "Takipten Çık" : "Takip Et",
+              );
+            }),
+          ),
+          Spacer(
+            flex: 5,
+          ),
           Expanded(flex: 60, child: _profileInfo)
         ],
       ),

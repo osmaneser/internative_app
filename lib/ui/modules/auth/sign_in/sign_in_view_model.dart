@@ -56,6 +56,7 @@ abstract class _SignInViewModelBase extends UserRepository with Store {
             context: context,
             message: "Giriş Başarılı",
             whenComplate: () async {
+              
               await Navigator.push(context, MaterialPageRoute(builder: (context) => UserListPage()));
             });
         state = SignInState.Done;

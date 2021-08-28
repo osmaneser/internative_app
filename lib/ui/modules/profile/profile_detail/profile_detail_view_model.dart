@@ -1,4 +1,7 @@
+import 'package:internative_app/core/mixins/date_parser.dart';
 import 'package:internative_app/init/locator.dart';
+import 'package:internative_app/ui/models/request/req_add_to_firend.dart';
+import 'package:internative_app/ui/models/request/req_remove_from_friend.dart';
 import 'package:internative_app/ui/models/request/req_user_detail.dart';
 import 'package:internative_app/ui/models/response/res_user_detail.dart';
 import 'package:internative_app/ui/repositories/user_repository.dart';
@@ -10,7 +13,7 @@ enum ProfileDetailState { Initial, Busy, Done, Error }
 
 class ProfileDetailViewModel = _ProfileDetailViewModelBase with _$ProfileDetailViewModel;
 
-abstract class _ProfileDetailViewModelBase with Store {
+abstract class _ProfileDetailViewModelBase with Store, DateFormatterMixin {
   UserRepository repository = locator<UserRepository>();
   @observable
   bool isOwner = false;

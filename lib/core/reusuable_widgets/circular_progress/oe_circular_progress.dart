@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:internative_app/core/reusuable_widgets/text/oe_content_text.dart';
 
 class OeCircularProgress extends StatelessWidget {
-  const OeCircularProgress({ Key? key }) : super(key: key);
+  final String text;
+  const OeCircularProgress({Key? key, this.text = "Lüften Bekleyiniz"}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +12,10 @@ class OeCircularProgress extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CircularProgressIndicator(),
-          SizedBox(height: 16,),
-          OeContentText(text: "Veriler Yükleniyor")
+          SizedBox(
+            height: 16,
+          ),
+          OeContentText(text: text)
         ],
       ),
     );
