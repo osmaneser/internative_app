@@ -30,13 +30,15 @@ class HttpService {
               HttpHeaders.contentTypeHeader: "application/json",
             };
 
+            String token =
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MTI3NTRkZDRhMWMyZDM0NmNmZDk0NmQiLCJmdWxsTmFtZSI6IkVyZW4gS2F5YSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJuYmYiOjE2MzAxMDUwMTksImV4cCI6MTYzMjY5NzAxOSwiaXNzIjoiaSIsImF1ZCI6ImEifQ.yu6lkJNssi9Gs6aG0GC4rRGVs4jM-uXm4rCpX2IyfkU";
             //TODO: Token işlemlerini düzelt
-            // if (token != null && token.isNotEmpty) {
-            //   options.headers = headers;
-            //   if (token.isNotEmpty) {
-            //     options.headers["Authorization"] = "Bearer $token";
-            //   }
-            // }
+            if (token != null && token.isNotEmpty) {
+              options.headers = headers;
+              if (token.isNotEmpty) {
+                options.headers["Authorization"] = "Bearer $token";
+              }
+            }
             return handler.next(options);
           },
         ),
