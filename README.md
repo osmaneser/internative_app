@@ -1,19 +1,59 @@
 # internative_app
 
-A new Flutter project.
-
-## Getting Started
-
-<img src="https://osmaneser.com/internative/1630199444362.jpg" width="100" height="100">
+Internative App
 
 
-This project is a starting point for a Flutter application.
+<table>
+  <tr>
+    <td>
+      <img src="https://osmaneser.com/internative/1630199444376.jpg" width="250">
+    </td>
+    <td>
+      <img src="https://osmaneser.com/internative/1630199444367.jpg" width="250"> 
+    </td>
+    <td>
+      <img src="https://osmaneser.com/internative/11630199444364.jpg" width="250">
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <img src="https://osmaneser.com/internative/1630199444362.jpg" width="250"> 
+    </td>
+     <td>
+      <img src="https://osmaneser.com/internative/11630199444375.jpg" width="250">
+    </td>
+    <td>
+      <img src="https://osmaneser.com/internative/1630199444370.jpg" width="250"> 
+    </td>
+  </tr>
+ 
+  <tr>
+    <td>
+      <img src="https://osmaneser.com/internative/1630199444373.jpg" width="250">
+    </td>
+    <td>
+      <img src="https://osmaneser.com/internative/1630199444374.jpg" width="250"> 
+    </td>
+    <td>
+      <img src="https://osmaneser.com/internative/11630199444369.jpg" width="250"> 
+    </td>
+  </tr>
+  
+  
+  <tr>
+    <td>
+      <img src="https://osmaneser.com/internative/1630199444371.jpg" width="250">
+    </td>
+  </tr>
+  
+  
+  
+  
+ </table>
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Giriş ekranında şifre gizleme açma özelliği
+- Kişi listesini API dan alma
+- Kişi detayı görüntüleme
+- Seçilen herhangi bir kişiyi arkadaş olarak ekleme ya da çıkarma
+- Açılış sayfasında soldan açılır menü
