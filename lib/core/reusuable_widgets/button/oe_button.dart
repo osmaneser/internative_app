@@ -26,20 +26,22 @@ class OeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: (isDisabled || isLoading) ? null : onTap,
-      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(color != null ? color: GlobalConstant.alternativeColor)),
+      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(color != null ? color : GlobalConstant.alternativeColor)),
       child: isLoading
-              ? SizedBox(
-                  height: 20,
-                  width: 20,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 1,
-                    backgroundColor: Colors.white,
-                  ),
-                )
-              : Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16),//TODO: dirty code
-                child: OeContentText(text: text, ),
-              )
+          ? SizedBox(
+              height: 20,
+              width: 20,
+              child: CircularProgressIndicator(
+                strokeWidth: 1,
+                backgroundColor: Colors.white,
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16), //TODO: dirty code
+              child: OeContentText(
+                text: text,
+              ),
+            ),
     );
   }
 }

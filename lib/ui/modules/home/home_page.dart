@@ -20,6 +20,7 @@ class HomePage extends StatelessWidget {
     final vModelHome = locator<HomeViewModel>();
     if (vModelHome.state == HomeState.Initial) {
       vModelHome.getMyProfile();
+      vModelHome.getFriends();
     }
 
     return Observer(

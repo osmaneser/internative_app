@@ -7,7 +7,6 @@ class OeTitleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeData = Theme.of(context);
     return Text(
       text,
       style: TextStyle(
