@@ -4,7 +4,8 @@ A new Flutter project.
 
 ## Getting Started
 
-![alt text](https://osmaneser.com/internative/1630199444362.jpg)
+<img src="https://osmaneser.com/internative/1630199444362.jpg" width="100" height="100">
+
 
 This project is a starting point for a Flutter application.
 
